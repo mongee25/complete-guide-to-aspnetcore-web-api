@@ -1,3 +1,4 @@
+using Libreria_EMO.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,14 +12,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Libreria_EMO
 {
     public class Startup
     {
+        public string ConnectionString { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +32,8 @@ namespace Libreria_EMO
         {
 
             services.AddControllers();
+            //Configurar DBContext con SQL
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Libreria_EMO", Version = "v1" });
@@ -54,6 +60,8 @@ namespace Libreria_EMO
             {
                 endpoints.MapControllers();
             });
+
+            AppDbInitializer.Seed(app);
         }
     }
 }

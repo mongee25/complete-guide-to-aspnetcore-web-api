@@ -1,6 +1,9 @@
 ﻿using Libreria_EMO.Data.ViewModels;
 using Libreria_EMO.Data.Models;
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Libreria_EMO.Data.Services
 {
@@ -12,7 +15,7 @@ namespace Libreria_EMO.Data.Services
         {
             _context = context;
         }
-
+        //Método que nos permite agregar un libro en la BD
         public void AddBook(BookVM book)
         {
             var _book = new Book()
@@ -30,10 +33,40 @@ namespace Libreria_EMO.Data.Services
             _context.Books.Add(_book);
             _context.SaveChanges();
         }
+        //Método que nos permite obtener una lista de todos los libros en la BD
+        public List<Book> GetAllBks() => _context.Books.ToList();
+        //Método que nos permite obtener el libro que estamos pidiendo de la BD
+        public Book GetBookById(int bookid) => _context.Books.FirstOrDefault(n => n.id == bookid);
 
-        private object Books()
+        //Método que nos permite modificar un libro que se encuentra en la BD
+        public Book UpdateBookById(int bookid, BookVM book)
         {
-            throw new NotImplementedException();
+            var _book = _context.Books.FirstOrDefault(n => n.id == bookid);
+            if (_book != null) 
+            {
+                _book.Titulo = book.Titulo;
+                _book.Descripcion = book.Descripcion;
+                _book.IsRead = book.IsRead;
+                _book.DateRead = book.DateRead;
+                _book.Rate = book.Rate;
+                _book.Genero = book.Genero;
+                _book.Autor = book.Autor;
+                _book.CoverUrl = book.CoverUrl;
+
+                _context.SaveChanges();
+            }
+            return _book;
+        }
+
+        public void DeleteBookById(int bookid)
+        {
+            var _book = _context.Books.FirstOrDefault(n => n.id == bookid);
+
+            if (_book != null)
+            {
+                _context.Books.Remove(_book);
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Libreria_EMO.Data.Models
 {
@@ -15,5 +16,9 @@ namespace Libreria_EMO.Data.Models
         public string CoverUrl { get; set; }
         public DateTime DateAdded { get; set; }
 
+        //Propiedades de navegación (en esta parte es donde "mapeamos")
+        public int PublisherId { get; set; }
+        public Publisher Publisher { get; set; }
+        public List<Book_Author> Book_Authors { get; set; }
     }
 }

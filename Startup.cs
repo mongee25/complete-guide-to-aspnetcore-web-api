@@ -38,6 +38,9 @@ namespace Libreria_EMO
 
             //Configurar el servicio para que pueda ser usado
             services.AddTransient<BooksService>();
+            services.AddTransient<AuthorsService>();
+            services.AddTransient<PublishersService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Libreria_EMO", Version = "v1" });
@@ -64,8 +67,7 @@ namespace Libreria_EMO
             {
                 endpoints.MapControllers();
             });
-
-            AppDbInitializer.Seed(app);
+            //AppDbInitializer.Seed(app);
         }
     }
 }

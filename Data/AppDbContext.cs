@@ -17,7 +17,7 @@ namespace Libreria_EMO.Data
                 .HasForeignKey(bi => bi.BookId);
 
             modelBuilder.Entity<Book_Author>()
-                .HasOne(b => b.Book)
+                .HasOne(b => b.Author)
                 .WithMany(ba => ba.Book_Authors)
                 .HasForeignKey(bi => bi.AuthorId);
         }

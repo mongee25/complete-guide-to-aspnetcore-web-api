@@ -24,7 +24,6 @@ namespace Libreria_EMO.Data
                         DateRead = DateTime.Now.AddDays(-10),
                         Rate = 4,
                         Genero = "Biography",
-                        Autor = "1st Author",
                         CoverUrl = "https...",
                         DateAdded = DateTime.Now,
                     },
@@ -34,7 +33,6 @@ namespace Libreria_EMO.Data
                         Descripcion = "2nd Book Description",
                         IsRead = true,
                         Genero = "Biography",
-                        Autor = "2nd Author",
                         CoverUrl = "https...",
                         DateAdded = DateTime.Now,
                     });

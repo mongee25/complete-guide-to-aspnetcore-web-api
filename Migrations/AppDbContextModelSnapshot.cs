@@ -41,9 +41,6 @@ namespace Libreria_EMO.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Autor")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CoverUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -88,9 +85,6 @@ namespace Libreria_EMO.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AuthorId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
@@ -98,7 +92,7 @@ namespace Libreria_EMO.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("BookId");
 
                     b.ToTable("Book_Authors");
                 });
@@ -131,15 +125,15 @@ namespace Libreria_EMO.Migrations
 
             modelBuilder.Entity("Libreria_EMO.Data.Models.Book_Author", b =>
                 {
-                    b.HasOne("Libreria_EMO.Data.Models.Book", "Book")
+                    b.HasOne("Libreria_EMO.Data.Models.Author", "Author")
                         .WithMany("Book_Authors")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Libreria_EMO.Data.Models.Author", "Author")
+                    b.HasOne("Libreria_EMO.Data.Models.Book", "Book")
                         .WithMany("Book_Authors")
-                        .HasForeignKey("AuthorId1")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

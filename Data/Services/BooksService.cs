@@ -47,7 +47,22 @@ namespace Libreria_EMO.Data.Services
         //Método que nos permite obtener una lista de todos los libros en la BD
         public List<Book> GetAllBks() => _context.Books.ToList();
         //Método que nos permite obtener el libro que estamos pidiendo de la BD
-        public Book GetBookById(int bookid) => _context.Books.FirstOrDefault(n => n.id == bookid);
+        public BookWithAuthorsVM GetBookById(int bookid)
+        {
+            var _bookWithAuthors = _context.Books.Where(n => n.id == bookid).Select(book => new BookWithAuthorsVM()
+            {
+                Titulo = book.Titulo,
+                Descripcion = book.Descripcion,
+                IsRead = book.IsRead,
+                DateRead = book.DateRead,
+                Rate = book.Rate,
+                Genero = book.Genero,
+                CoverUrl = book.CoverUrl,
+                PublisherName = book.Publisher.Name,
+                AutorNames = book.Book_Authors.Select(n => n.Author.FullName).ToList()
+            }).FirstOrDefault();
+            return _bookWithAuthors;
+        }
 
         //Método que nos permite modificar un libro que se encuentra en la BD
         public Book UpdateBookById(int bookid, BookVM book)

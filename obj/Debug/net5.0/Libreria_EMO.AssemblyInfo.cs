@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Libreria_EMO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbc422975a08e126ecb1ffc3a3ea87dd11045d03")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+513c77e7db48c922811b92ff76462a01a6848210")]
 [assembly: System.Reflection.AssemblyProductAttribute("Libreria_EMO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Libreria_EMO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

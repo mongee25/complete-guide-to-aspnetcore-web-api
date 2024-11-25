@@ -11,3 +11,5 @@ build_property.RootNamespace = Libreria_EMO
 build_property.ProjectDir = C:\AWOS\Libreria_EMO\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 5.0
+build_property.EnableCodeStyleSeverity = 

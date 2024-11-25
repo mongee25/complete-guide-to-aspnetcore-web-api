@@ -2,6 +2,8 @@
 using Libreria_EMO.Data.ViewModels;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Libreria_EMO.Exceptions;
 
 namespace Libreria_EMO.Data.Services
 {
@@ -16,6 +18,7 @@ namespace Libreria_EMO.Data.Services
         //Método que nos permite agregar una nueva Editora en la BD
         public Publisher AddPublisher(PublisherVM publisher)
         {
+            if (StringStartsWithNumber(publisher.Name)) throw new PublisherNameExceptions("El nombre empieza con un numero", publisher.Name);
             var _publisher = new Publisher()
             {
                Name = publisher.Name
@@ -50,6 +53,11 @@ namespace Libreria_EMO.Data.Services
                 _context.Publishers.Remove(_publisher);
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception($"La editora con el id: {id} no existe!");
+            }
         }
+        private bool StringStartsWithNumber(string name) => (Regex.IsMatch(name, @"^\d"));
     }
 }

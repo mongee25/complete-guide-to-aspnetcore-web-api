@@ -1,7 +1,9 @@
 ﻿using Libreria_EMO.Data.Services;
 using Libreria_EMO.Data.ViewModels;
+using Libreria_EMO.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Libreria_EMO.Controllers
 {
@@ -19,8 +21,19 @@ namespace Libreria_EMO.Controllers
         [HttpPost("add-publisher")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisher)
         {
-            var newPublisher = _publishersService.AddPublisher(publisher);
-            return Created(nameof(AddPublisher), newPublisher);
+            try
+            {
+                var newPublisher = _publishersService.AddPublisher(publisher);
+                return Created(nameof(AddPublisher), newPublisher);
+            }
+            catch(PublisherNameExceptions ex)
+            {
+                return BadRequest($"{ex.Message}, Nombre de la editora: {ex.PublisherName}");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("get-publisher-by-id/{id}")]
@@ -47,8 +60,15 @@ namespace Libreria_EMO.Controllers
         [HttpDelete("delete-publisher-by-id/{id}")]
         public IActionResult DeletePublisherById(int id)
         {
-            _publishersService.DeletePublisherById(id);
-            return Ok();
+            try
+            {
+                _publishersService.DeletePublisherById(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
